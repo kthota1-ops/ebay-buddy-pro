@@ -14,11 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      ebay_accounts: {
+        Row: {
+          access_token: string | null
+          account_name: string
+          connected_at: string
+          created_at: string
+          ebay_user_id: string | null
+          id: string
+          is_active: boolean
+          refresh_token: string | null
+          token_expires_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_token?: string | null
+          account_name: string
+          connected_at?: string
+          created_at?: string
+          ebay_user_id?: string | null
+          id?: string
+          is_active?: boolean
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_token?: string | null
+          account_name?: string
+          connected_at?: string
+          created_at?: string
+          ebay_user_id?: string | null
+          id?: string
+          is_active?: boolean
+          refresh_token?: string | null
+          token_expires_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       inventory: {
         Row: {
           category: string | null
           created_at: string
           description: string | null
+          ebay_account_id: string | null
           ebay_listing_id: string | null
           ebay_listing_url: string | null
           id: string
@@ -34,6 +77,7 @@ export type Database = {
           category?: string | null
           created_at?: string
           description?: string | null
+          ebay_account_id?: string | null
           ebay_listing_id?: string | null
           ebay_listing_url?: string | null
           id?: string
@@ -49,6 +93,7 @@ export type Database = {
           category?: string | null
           created_at?: string
           description?: string | null
+          ebay_account_id?: string | null
           ebay_listing_id?: string | null
           ebay_listing_url?: string | null
           id?: string
@@ -60,7 +105,15 @@ export type Database = {
           updated_at?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "inventory_ebay_account_id_fkey"
+            columns: ["ebay_account_id"]
+            isOneToOne: false
+            referencedRelation: "ebay_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
